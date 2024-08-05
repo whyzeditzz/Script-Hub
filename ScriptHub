@@ -1,1 +1,117 @@
-loadstring([[\45\45\32\80\117\116\32\115\99\114\105\112\116\32\104\101\114\101\10]])()
+local a = Instance.new("ScreenGui")
+a.Name = "ScriptHubGui"
+a.Parent = game.CoreGui
+local b = Instance.new("Frame")
+b.Name = "MainFrame"
+b.Size = UDim2.new(0, 600, 0, 700)
+b.Position = UDim2.new(0.5, -300, 0.5, -350)
+b.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+b.BorderSizePixel = 2
+b.BorderColor3 = Color3.fromRGB(255, 0, 0)
+b.AnchorPoint = Vector2.new(0.5, 0.5)
+b.Active = true
+b.Draggable = true
+b.Parent = a
+local c = Instance.new("UICorner")
+c.CornerRadius = UDim.new(0, 10)
+c.Parent = b
+local d = Instance.new("ScrollingFrame")
+d.Size = UDim2.new(1, -20, 1, -80)
+d.Position = UDim2.new(0, 10, 0, 50)
+d.CanvasSize = UDim2.new(0, 0, 0, 0)
+d.ScrollBarThickness = 6
+d.BackgroundTransparency = 1
+d.Parent = b
+local e = game.Players.LocalPlayer.Name
+local f = Instance.new("TextLabel")
+f.Size = UDim2.new(1, 0, 0, 20)
+f.Position = UDim2.new(0, 0, 0, 0)
+f.BackgroundTransparency = 1
+f.Text = "Welcome, " .. e
+f.TextColor3 = Color3.fromRGB(255, 0, 0)
+f.TextScaled = true
+f.Parent = b
+local g = Instance.new("TextLabel")
+g.Size = UDim2.new(1, 0, 0, 30)
+g.Position = UDim2.new(0, 0, 0, 20)
+g.BackgroundTransparency = 1
+g.Text = "Script Hub"
+g.TextColor3 = Color3.fromRGB(255, 255, 255)
+g.TextScaled = true
+g.Parent = b
+
+local function h(i, j, k)
+    local l = Instance.new("TextButton")
+    l.Size = UDim2.new(1, -10, 0, 50)
+    l.Position = UDim2.new(0, 5, 0, (#d:GetChildren() - 1) * 55)
+    l.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+    l.TextColor3 = Color3.fromRGB(255, 255, 255)
+    l.Text = i
+    l.Parent = d
+    local m = Instance.new("UICorner")
+    m.CornerRadius = UDim.new(0, 5)
+    m.Parent = l
+    if k then
+        l.MouseButton1Click:Connect(k)
+    elseif j then
+        l.MouseButton1Click:Connect(function()
+            loadstring(game:HttpGet(j))()
+        end)
+    end
+end
+
+h("Fly Gui", "https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt")
+h("Fly GUI V3", "https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt")
+h("Infinite Yield", "https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source")
+h("Aimbot", "https://raw.githubusercontent.com/Actyrn/Scripts/main/AzureModded")
+h("Prison Life", "https://raw.githubusercontent.com/elliexmln/PrizzLife/main/pladmin.lua")
+h("Funky Friday", "https://pastebin.com/raw/dcyuEgyK")
+h("Breaking Point", "https://raw.githubusercontent.com/ColdStep2/Breaking-Point-Funny-Squid-Hax/main/Breaking%20Point%20Funny%20Squid%20Hax")
+h("Blox Fruit", "https://raw.githubusercontent.com/REDzHUB/BloxFruits/main/redz9999")
+h("Untitled Tag Game", "https://raw.githubusercontent.com/Zer0ids/Qwerty/main/UntitledTag/NewScript.lua")
+
+h("Speed", nil, function()
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 100
+end)
+h("Normal", nil, function()
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
+end)
+h("Slow", nil, function()
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 5
+end)
+
+h("Destroy GUI", nil, function()
+    a:Destroy()
+end)
+
+local function createRainbowOutline(frame)
+    local outline = Instance.new("Frame")
+    outline.Size = UDim2.new(1, 0, 1, 0)
+    outline.Position = UDim2.new(0, 0, 0, 0)
+    outline.BackgroundTransparency = 1
+    outline.BorderSizePixel = 4
+    outline.Parent = frame
+    
+    local rainbow = Instance.new("UIStroke")
+    rainbow.Thickness = 4
+    rainbow.Color = Color3.fromRGB(255, 0, 0)
+    rainbow.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+    rainbow.Parent = outline
+
+    local tweenService = game:GetService("TweenService")
+    local tweenInfo = TweenInfo.new(2, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, -1, true)
+    local tweenGoal = {Color = Color3.fromHSV(0, 1, 1)}
+    local tween = tweenService:Create(rainbow, tweenInfo, tweenGoal)
+    tween:Play()
+end
+
+createRainbowOutline(b)
+
+d.CanvasSize = UDim2.new(0, 0, 0, (#d:GetChildren() - 1) * 55)
+
+local userInputService = game:GetService("UserInputService")
+userInputService.InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.LeftControl then
+        a.Enabled = not a.Enabled
+    end
+end)
