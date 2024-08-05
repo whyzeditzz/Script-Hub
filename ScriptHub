@@ -1,89 +1,107 @@
-local a = Instance.new("ScreenGui")
-a.Name = "ScriptHubGui"
-a.Parent = game.CoreGui
-local b = Instance.new("Frame")
-b.Name = "MainFrame"
-b.Size = UDim2.new(0, 600, 0, 700)
-b.Position = UDim2.new(0.5, -300, 0.5, -350)
-b.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-b.BorderSizePixel = 2
-b.BorderColor3 = Color3.fromRGB(255, 0, 0)
-b.AnchorPoint = Vector2.new(0.5, 0.5)
-b.Active = true
-b.Draggable = true
-b.Parent = a
-local c = Instance.new("UICorner")
-c.CornerRadius = UDim.new(0, 10)
-c.Parent = b
-local d = Instance.new("ScrollingFrame")
-d.Size = UDim2.new(1, -20, 1, -80)
-d.Position = UDim2.new(0, 10, 0, 50)
-d.CanvasSize = UDim2.new(0, 0, 0, 0)
-d.ScrollBarThickness = 6
-d.BackgroundTransparency = 1
-d.Parent = b
-local e = game.Players.LocalPlayer.Name
-local f = Instance.new("TextLabel")
-f.Size = UDim2.new(1, 0, 0, 20)
-f.Position = UDim2.new(0, 0, 0, 0)
-f.BackgroundTransparency = 1
-f.Text = "Welcome, " .. e
-f.TextColor3 = Color3.fromRGB(255, 0, 0)
-f.TextScaled = true
-f.Parent = b
-local g = Instance.new("TextLabel")
-g.Size = UDim2.new(1, 0, 0, 30)
-g.Position = UDim2.new(0, 0, 0, 20)
-g.BackgroundTransparency = 1
-g.Text = "Script Hub"
-g.TextColor3 = Color3.fromRGB(255, 255, 255)
-g.TextScaled = true
-g.Parent = b
+-- Create ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "ScriptHubGui"
+screenGui.Parent = game.CoreGui
 
-local function h(i, j, k)
-    local l = Instance.new("TextButton")
-    l.Size = UDim2.new(1, -10, 0, 50)
-    l.Position = UDim2.new(0, 5, 0, (#d:GetChildren() - 1) * 55)
-    l.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-    l.TextColor3 = Color3.fromRGB(255, 255, 255)
-    l.Text = i
-    l.Parent = d
-    local m = Instance.new("UICorner")
-    m.CornerRadius = UDim.new(0, 5)
-    m.Parent = l
-    if k then
-        l.MouseButton1Click:Connect(k)
-    elseif j then
-        l.MouseButton1Click:Connect(function()
-            loadstring(game:HttpGet(j))()
+-- Create Frame for the GUI
+local frame = Instance.new("Frame")
+frame.Name = "MainFrame"
+frame.Size = UDim2.new(0, 600, 0, 700)
+frame.Position = UDim2.new(0.5, -300, 0.5, -350)
+frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+frame.BorderSizePixel = 2
+frame.BorderColor3 = Color3.fromRGB(255, 0, 0) -- Placeholder for animated rainbow effect
+frame.AnchorPoint = Vector2.new(0.5, 0.5)
+frame.Active = true
+frame.Draggable = false -- Set to false since we'll handle dragging manually
+frame.Parent = screenGui
+
+-- Add UICorner for rounded corners
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 10)
+corner.Parent = frame
+
+-- Add scrolling functionality
+local scrollingFrame = Instance.new("ScrollingFrame")
+scrollingFrame.Size = UDim2.new(1, -20, 1, -80)
+scrollingFrame.Position = UDim2.new(0, 10, 0, 50)
+scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
+scrollingFrame.ScrollBarThickness = 6
+scrollingFrame.BackgroundTransparency = 1
+scrollingFrame.Parent = frame
+
+-- Add welcome message
+local playerName = game.Players.LocalPlayer.Name
+local welcomeMessage = Instance.new("TextLabel")
+welcomeMessage.Size = UDim2.new(1, 0, 0, 20)
+welcomeMessage.Position = UDim2.new(0, 0, 0, 0)
+welcomeMessage.BackgroundTransparency = 1
+welcomeMessage.Text = "Welcome, " .. playerName
+welcomeMessage.TextColor3 = Color3.fromRGB(255, 0, 0)
+welcomeMessage.TextScaled = true
+welcomeMessage.Parent = frame
+
+-- Add title
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, 0, 0, 30)
+title.Position = UDim2.new(0, 0, 0, 20)
+title.BackgroundTransparency = 1
+title.Text = "Script Hub"
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.TextScaled = true
+title.Parent = frame
+
+-- Function to create buttons
+local function createButton(name, scriptURL, func)
+    local button = Instance.new("TextButton")
+    button.Size = UDim2.new(1, -10, 0, 50)
+    button.Position = UDim2.new(0, 5, 0, (#scrollingFrame:GetChildren() - 1) * 55)
+    button.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+    button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    button.Text = name
+    button.Parent = scrollingFrame
+
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0, 5)
+    corner.Parent = button
+
+    if func then
+        button.MouseButton1Click:Connect(func)
+    elseif scriptURL then
+        button.MouseButton1Click:Connect(function()
+            loadstring(game:HttpGet(scriptURL))()
         end)
     end
 end
 
-h("Fly Gui", "https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt")
-h("Fly GUI V3", "https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt")
-h("Infinite Yield", "https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source")
-h("Aimbot", "https://raw.githubusercontent.com/Actyrn/Scripts/main/AzureModded")
-h("Prison Life", "https://raw.githubusercontent.com/elliexmln/PrizzLife/main/pladmin.lua")
-h("Funky Friday", "https://pastebin.com/raw/dcyuEgyK")
-h("Breaking Point", "https://raw.githubusercontent.com/ColdStep2/Breaking-Point-Funny-Squid-Hax/main/Breaking%20Point%20Funny%20Squid%20Hax")
-h("Blox Fruit", "https://raw.githubusercontent.com/REDzHUB/BloxFruits/main/redz9999")
-h("Untitled Tag Game", "https://raw.githubusercontent.com/Zer0ids/Qwerty/main/UntitledTag/NewScript.lua")
+-- Create buttons with respective scripts
+createButton("Fly Gui", "https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt")
+createButton("Fly GUI V3", "https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt")
+createButton("Infinite Yield", "https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source")
+createButton("Aimbot", "https://raw.githubusercontent.com/Actyrn/Scripts/main/AzureModded")
+createButton("Prison Life", "https://raw.githubusercontent.com/elliexmln/PrizzLife/main/pladmin.lua")
+createButton("Funky Friday", "https://pastebin.com/raw/dcyuEgyK")
+createButton("Breaking Point", "https://raw.githubusercontent.com/ColdStep2/Breaking-Point-Funny-Squid-Hax/main/Breaking%20Point%20Funny%20Squid%20Hax")
+createButton("Blox Fruit", "https://raw.githubusercontent.com/REDzHUB/BloxFruits/main/redz9999")
+createButton("Untitled Tag Game", "https://raw.githubusercontent.com/Zer0ids/Qwerty/main/UntitledTag/NewScript.lua")
 
-h("Speed", nil, function()
+-- Create Speed, Normal, and Slow buttons
+createButton("Speed", nil, function()
     game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 100
 end)
-h("Normal", nil, function()
+createButton("Normal", nil, function()
     game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
 end)
-h("Slow", nil, function()
+createButton("Slow", nil, function()
     game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 5
 end)
 
-h("Destroy GUI", nil, function()
-    a:Destroy()
+-- Destroy GUI button
+createButton("Destroy GUI", nil, function()
+    screenGui:Destroy()
 end)
 
+-- Add animation for rainbow outline
 local function createRainbowOutline(frame)
     local outline = Instance.new("Frame")
     outline.Size = UDim2.new(1, 0, 1, 0)
@@ -105,13 +123,71 @@ local function createRainbowOutline(frame)
     tween:Play()
 end
 
-createRainbowOutline(b)
+createRainbowOutline(frame)
 
-d.CanvasSize = UDim2.new(0, 0, 0, (#d:GetChildren() - 1) * 55)
+-- Adjust the CanvasSize to fit all buttons
+scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, (#scrollingFrame:GetChildren() - 1) * 55)
 
+-- Toggle GUI visibility with left Ctrl
 local userInputService = game:GetService("UserInputService")
 userInputService.InputBegan:Connect(function(input)
     if input.KeyCode == Enum.KeyCode.LeftControl then
-        a.Enabled = not a.Enabled
+        screenGui.Enabled = not screenGui.Enabled
     end
 end)
+
+-- Dragging functionality
+local dragging
+local dragInput
+local dragStart
+local startPos
+
+local function update(input)
+    local delta = input.Position - dragStart
+    frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+end
+
+frame.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        dragging = true
+        dragStart = input.Position
+        startPos = frame.Position
+
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+frame.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement then
+        dragInput = input
+    end
+end)
+
+userInputService.InputChanged:Connect(function(input)
+    if input == dragInput and dragging then
+        update(input)
+    end
+end)
+
+-- Welcome message at the bottom right
+local welcomeMsg = Instance.new("TextLabel")
+welcomeMsg.Size = UDim2.new(0, 200, 0, 50)
+welcomeMsg.Position = UDim2.new(1, -210, 1, -60)
+welcomeMsg.BackgroundTransparency = 0.5
+welcomeMsg.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+welcomeMsg.BorderSizePixel = 0
+welcomeMsg.Text = "Welcome! Left CTRL to toggle!"
+welcomeMsg.TextColor3 = Color3.fromRGB(255, 255, 255)
+welcomeMsg.TextScaled = true
+welcomeMsg.Parent = screenGui
+
+local welcomeCorner = Instance.new("UICorner")
+welcomeCorner.CornerRadius = UDim.new(0, 10)
+welcomeCorner.Parent = welcomeMsg
+
+wait(5)
+welcomeMsg:Destroy()
