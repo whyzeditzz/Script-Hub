@@ -1,193 +1,183 @@
--- Create ScreenGui
-local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "ScriptHubGui"
-screenGui.Parent = game.CoreGui
+-- High-level obfuscation script
 
--- Create Frame for the GUI
-local frame = Instance.new("Frame")
-frame.Name = "MainFrame"
-frame.Size = UDim2.new(0, 600, 0, 700)
-frame.Position = UDim2.new(0.5, -300, 0.5, -350)
-frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-frame.BorderSizePixel = 2
-frame.BorderColor3 = Color3.fromRGB(255, 0, 0) -- Placeholder for animated rainbow effect
-frame.AnchorPoint = Vector2.new(0.5, 0.5)
-frame.Active = true
-frame.Draggable = false -- Set to false since we'll handle dragging manually
-frame.Parent = screenGui
+local _0x1a2b = game:GetService("CoreGui")
+local _0x3d4e = game:GetService("Players").LocalPlayer
+local _0x5e6f = game:GetService("TweenService")
+local _0x7f8a = game:GetService("UserInputService")
 
--- Add UICorner for rounded corners
-local corner = Instance.new("UICorner")
-corner.CornerRadius = UDim.new(0, 10)
-corner.Parent = frame
+local function _0x1a2b()
+    local _0x7b8e = Instance.new("ScreenGui")
+    _0x7b8e.Name = string.char(83, 99, 114, 105, 112, 116, 72, 117, 98) -- "ScriptHub"
+    _0x7b8e.Parent = _0x1a2b
 
--- Add scrolling functionality
-local scrollingFrame = Instance.new("ScrollingFrame")
-scrollingFrame.Size = UDim2.new(1, -20, 1, -80)
-scrollingFrame.Position = UDim2.new(0, 10, 0, 50)
-scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
-scrollingFrame.ScrollBarThickness = 6
-scrollingFrame.BackgroundTransparency = 1
-scrollingFrame.Parent = frame
+    local _0x4e7a = Instance.new("Frame")
+    _0x4e7a.Size = UDim2.new(0, 600, 0, 700)
+    _0x4e7a.Position = UDim2.new(0.5, -300, 0.5, -350)
+    _0x4e7a.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    _0x4e7a.BorderSizePixel = 2
+    _0x4e7a.BorderColor3 = Color3.fromRGB(255, 0, 0)
+    _0x4e7a.AnchorPoint = Vector2.new(0.5, 0.5)
+    _0x4e7a.Active = true
+    _0x4e7a.Draggable = false
+    _0x4e7a.Parent = _0x7b8e
 
--- Add welcome message
-local playerName = game.Players.LocalPlayer.Name
-local welcomeMessage = Instance.new("TextLabel")
-welcomeMessage.Size = UDim2.new(1, 0, 0, 20)
-welcomeMessage.Position = UDim2.new(0, 0, 0, 0)
-welcomeMessage.BackgroundTransparency = 1
-welcomeMessage.Text = "Welcome, " .. playerName
-welcomeMessage.TextColor3 = Color3.fromRGB(255, 0, 0)
-welcomeMessage.TextScaled = true
-welcomeMessage.Parent = frame
+    local _0x3f9b = Instance.new("UICorner")
+    _0x3f9b.CornerRadius = UDim.new(0, 10)
+    _0x3f9b.Parent = _0x4e7a
 
--- Add title
-local title = Instance.new("TextLabel")
-title.Size = UDim2.new(1, 0, 0, 30)
-title.Position = UDim2.new(0, 0, 0, 20)
-title.BackgroundTransparency = 1
-title.Text = "Script Hub"
-title.TextColor3 = Color3.fromRGB(255, 255, 255)
-title.TextScaled = true
-title.Parent = frame
+    local _0x5a6c = Instance.new("ScrollingFrame")
+    _0x5a6c.Size = UDim2.new(1, -20, 1, -80)
+    _0x5a6c.Position = UDim2.new(0, 10, 0, 50)
+    _0x5a6c.CanvasSize = UDim2.new(0, 0, 0, 0)
+    _0x5a6c.ScrollBarThickness = 6
+    _0x5a6c.BackgroundTransparency = 1
+    _0x5a6c.Parent = _0x4e7a
 
--- Function to create buttons
-local function createButton(name, scriptURL, func)
-    local button = Instance.new("TextButton")
-    button.Size = UDim2.new(1, -10, 0, 50)
-    button.Position = UDim2.new(0, 5, 0, (#scrollingFrame:GetChildren() - 1) * 55)
-    button.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-    button.TextColor3 = Color3.fromRGB(255, 255, 255)
-    button.Text = name
-    button.Parent = scrollingFrame
+    local _0x3b7e = Instance.new("TextLabel")
+    _0x3b7e.Size = UDim2.new(1, 0, 0, 20)
+    _0x3b7e.Position = UDim2.new(0, 0, 0, 0)
+    _0x3b7e.BackgroundTransparency = 1
+    _0x3b7e.Text = "Hello, " .. _0x3d4e.Name
+    _0x3b7e.TextColor3 = Color3.fromRGB(255, 0, 0)
+    _0x3b7e.TextScaled = true
+    _0x3b7e.Parent = _0x4e7a
 
-    local corner = Instance.new("UICorner")
-    corner.CornerRadius = UDim.new(0, 5)
-    corner.Parent = button
+    local _0x7c9e = Instance.new("TextLabel")
+    _0x7c9e.Size = UDim2.new(1, 0, 0, 30)
+    _0x7c9e.Position = UDim2.new(0, 0, 0, 20)
+    _0x7c9e.BackgroundTransparency = 1
+    _0x7c9e.Text = "Script Hub"
+    _0x7c9e.TextColor3 = Color3.fromRGB(255, 255, 255)
+    _0x7c9e.TextScaled = true
+    _0x7c9e.Parent = _0x4e7a
 
-    if func then
-        button.MouseButton1Click:Connect(func)
-    elseif scriptURL then
-        button.MouseButton1Click:Connect(function()
-            loadstring(game:HttpGet(scriptURL))()
-        end)
+    local function _0x6d2e(_0x1f3b, _0x4e2d, _0x2b4c)
+        local _0x5b9e = Instance.new("TextButton")
+        _0x5b9e.Size = UDim2.new(1, -10, 0, 50)
+        _0x5b9e.Position = UDim2.new(0, 5, 0, (#_0x5a6c:GetChildren() - 1) * 55)
+        _0x5b9e.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+        _0x5b9e.TextColor3 = Color3.fromRGB(255, 255, 255)
+        _0x5b9e.Text = _0x1f3b
+        _0x5b9e.Parent = _0x5a6c
+
+        local _0x7d6a = Instance.new("UICorner")
+        _0x7d6a.CornerRadius = UDim.new(0, 5)
+        _0x7d6a.Parent = _0x5b9e
+
+        if _0x2b4c then
+            _0x5b9e.MouseButton1Click:Connect(_0x2b4c)
+        elseif _0x4e2d then
+            _0x5b9e.MouseButton1Click:Connect(function()
+                loadstring(game:HttpGet(_0x4e2d))()
+            end)
+        end
     end
+
+    _0x6d2e("Fly Gui", "https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt")
+    _0x6d2e("Fly GUI V3", "https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt")
+    _0x6d2e("Infinite Yield", "https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source")
+    _0x6d2e("Aimbot", "https://raw.githubusercontent.com/Actyrn/Scripts/main/AzureModded")
+    _0x6d2e("Prison Life", "https://raw.githubusercontent.com/elliexmln/PrizzLife/main/pladmin.lua")
+    _0x6d2e("Funky Friday", "https://pastebin.com/raw/dcyuEgyK")
+    _0x6d2e("Breaking Point", "https://raw.githubusercontent.com/ColdStep2/Breaking-Point-Funny-Squid-Hax/main/Breaking%20Point%20Funny%20Squid%20Hax")
+    _0x6d2e("Blox Fruit", "https://raw.githubusercontent.com/REDzHUB/BloxFruits/main/redz9999")
+    _0x6d2e("Untitled Tag Game", "https://raw.githubusercontent.com/Zer0ids/Qwerty/main/UntitledTag/NewScript.lua")
+    _0x6d2e("Speed", nil, function()
+        _0x3d4e.Character.Humanoid.WalkSpeed = 100
+    end)
+    _0x6d2e("Normal", nil, function()
+        _0x3d4e.Character.Humanoid.WalkSpeed = 16
+    end)
+    _0x6d2e("Slow", nil, function()
+        _0x3d4e.Character.Humanoid.WalkSpeed = 5
+    end)
+    _0x6d2e("Destroy GUI", nil, function()
+        _0x7b8e:Destroy()
+    end)
+
+    local function _0x8c3d(_0x6f2b)
+        local _0x3b9f = Instance.new("Frame")
+        _0x3b9f.Size = UDim2.new(1, 0, 1, 0)
+        _0x3b9f.Position = UDim2.new(0, 0, 0, 0)
+        _0x3b9f.BackgroundTransparency = 1
+        _0x3b9f.BorderSizePixel = 4
+        _0x3b9f.Parent = _0x6f2b
+
+        local _0x2d7b = Instance.new("UIStroke")
+        _0x2d7b.Thickness = 4
+        _0x2d7b.Color = Color3.fromRGB(255, 0, 0)
+        _0x2d7b.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+        _0x2d7b.Parent = _0x3b9f
+
+        local _0x8e4a = TweenInfo.new(2, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, -1, true)
+        local _0x9a6b = { Color = Color3.fromHSV(0, 1, 1) }
+        local _0x7b5e = _0x5e6f:Create(_0x2d7b, _0x8e4a, _0x9a6b)
+        _0x7b5e:Play()
+    end
+
+    _0x8c3d(_0x4e7a)
+
+    _0x5a6c.CanvasSize = UDim2.new(0, 0, 0, (#_0x5a6c:GetChildren() - 1) * 55)
+
+    _0x7f8a.InputBegan:Connect(function(_0x2a4b)
+        if _0x2a4b.KeyCode == Enum.KeyCode.LeftControl then
+            _0x7b8e.Enabled = not _0x7b8e.Enabled
+        end
+    end)
+
+    local _0x2d6a
+    local _0x3a9b
+    local _0x5b4e
+    local _0x7e9c
+
+    local function _0x1b3d(_0x6d7c)
+        local _0x5c7d = _0x6d7c.Position - _0x3a9b
+        _0x4e7a.Position = UDim2.new(_0x7e9c.X.Scale, _0x7e9c.X.Offset + _0x5c7d.X, _0x7e9c.Y.Scale, _0x7e9c.Y.Offset + _0x5c7d.Y)
+    end
+
+    _0x4e7a.InputBegan:Connect(function(_0x8a6c)
+        if _0x8a6c.UserInputType == Enum.UserInputType.MouseButton1 then
+            _0x2d6a = true
+            _0x3a9b = _0x8a6c.Position
+            _0x7e9c = _0x4e7a.Position
+
+            _0x8a6c.Changed:Connect(function()
+                if _0x8a6c.UserInputState == Enum.UserInputState.End then
+                    _0x2d6a = false
+                end
+            end)
+        end
+    end)
+
+    _0x4e7a.InputChanged:Connect(function(_0x9b7e)
+        if _0x9b7e.UserInputType == Enum.UserInputType.MouseMovement then
+            _0x3a9b = _0x9b7e
+        end
+    end)
+
+    _0x7f8a.InputChanged:Connect(function(_0x8d9a)
+        if _0x8d9a == _0x3a9b and _0x2d6a then
+            _0x1b3d(_0x8d9a)
+        end
+    end)
+
+    local _0x7c4d = Instance.new("TextLabel")
+    _0x7c4d.Size = UDim2.new(0, 200, 0, 50)
+    _0x7c4d.Position = UDim2.new(1, -210, 1, -60)
+    _0x7c4d.BackgroundTransparency = 0.5
+    _0x7c4d.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    _0x7c4d.BorderSizePixel = 0
+    _0x7c4d.Text = "Hello! CTRL to toggle!"
+    _0x7c4d.TextColor3 = Color3.fromRGB(255, 255, 255)
+    _0x7c4d.TextScaled = true
+    _0x7c4d.Parent = _0x7b8e
+
+    local _0x6f5a = Instance.new("UICorner")
+    _0x6f5a.CornerRadius = UDim.new(0, 10)
+    _0x6f5a.Parent = _0x7c4d
+
+    wait(5)
+    _0x7c4d:Destroy()
 end
 
--- Create buttons with respective scripts
-createButton("Fly Gui", "https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt")
-createButton("Fly GUI V3", "https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt")
-createButton("Infinite Yield", "https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source")
-createButton("Aimbot", "https://raw.githubusercontent.com/Actyrn/Scripts/main/AzureModded")
-createButton("Prison Life", "https://raw.githubusercontent.com/elliexmln/PrizzLife/main/pladmin.lua")
-createButton("Funky Friday", "https://pastebin.com/raw/dcyuEgyK")
-createButton("Breaking Point", "https://raw.githubusercontent.com/ColdStep2/Breaking-Point-Funny-Squid-Hax/main/Breaking%20Point%20Funny%20Squid%20Hax")
-createButton("Blox Fruit", "https://raw.githubusercontent.com/REDzHUB/BloxFruits/main/redz9999")
-createButton("Untitled Tag Game", "https://raw.githubusercontent.com/Zer0ids/Qwerty/main/UntitledTag/NewScript.lua")
-
--- Create Speed, Normal, and Slow buttons
-createButton("Speed", nil, function()
-    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 100
-end)
-createButton("Normal", nil, function()
-    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
-end)
-createButton("Slow", nil, function()
-    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 5
-end)
-
--- Destroy GUI button
-createButton("Destroy GUI", nil, function()
-    screenGui:Destroy()
-end)
-
--- Add animation for rainbow outline
-local function createRainbowOutline(frame)
-    local outline = Instance.new("Frame")
-    outline.Size = UDim2.new(1, 0, 1, 0)
-    outline.Position = UDim2.new(0, 0, 0, 0)
-    outline.BackgroundTransparency = 1
-    outline.BorderSizePixel = 4
-    outline.Parent = frame
-    
-    local rainbow = Instance.new("UIStroke")
-    rainbow.Thickness = 4
-    rainbow.Color = Color3.fromRGB(255, 0, 0)
-    rainbow.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-    rainbow.Parent = outline
-
-    local tweenService = game:GetService("TweenService")
-    local tweenInfo = TweenInfo.new(2, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, -1, true)
-    local tweenGoal = {Color = Color3.fromHSV(0, 1, 1)}
-    local tween = tweenService:Create(rainbow, tweenInfo, tweenGoal)
-    tween:Play()
-end
-
-createRainbowOutline(frame)
-
--- Adjust the CanvasSize to fit all buttons
-scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, (#scrollingFrame:GetChildren() - 1) * 55)
-
--- Toggle GUI visibility with left Ctrl
-local userInputService = game:GetService("UserInputService")
-userInputService.InputBegan:Connect(function(input)
-    if input.KeyCode == Enum.KeyCode.LeftControl then
-        screenGui.Enabled = not screenGui.Enabled
-    end
-end)
-
--- Dragging functionality
-local dragging
-local dragInput
-local dragStart
-local startPos
-
-local function update(input)
-    local delta = input.Position - dragStart
-    frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-end
-
-frame.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        dragging = true
-        dragStart = input.Position
-        startPos = frame.Position
-
-        input.Changed:Connect(function()
-            if input.UserInputState == Enum.UserInputState.End then
-                dragging = false
-            end
-        end)
-    end
-end)
-
-frame.InputChanged:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseMovement then
-        dragInput = input
-    end
-end)
-
-userInputService.InputChanged:Connect(function(input)
-    if input == dragInput and dragging then
-        update(input)
-    end
-end)
-
--- Welcome message at the bottom right
-local welcomeMsg = Instance.new("TextLabel")
-welcomeMsg.Size = UDim2.new(0, 200, 0, 50)
-welcomeMsg.Position = UDim2.new(1, -210, 1, -60)
-welcomeMsg.BackgroundTransparency = 0.5
-welcomeMsg.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-welcomeMsg.BorderSizePixel = 0
-welcomeMsg.Text = "Welcome! Left CTRL to toggle!"
-welcomeMsg.TextColor3 = Color3.fromRGB(255, 255, 255)
-welcomeMsg.TextScaled = true
-welcomeMsg.Parent = screenGui
-
-local welcomeCorner = Instance.new("UICorner")
-welcomeCorner.CornerRadius = UDim.new(0, 10)
-welcomeCorner.Parent = welcomeMsg
-
-wait(5)
-welcomeMsg:Destroy()
+_0x1a2b()
