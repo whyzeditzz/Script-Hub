@@ -1,4 +1,4 @@
--- High-level obfuscation script
+
 
 local _0x1a2b = game:GetService("CoreGui")
 local _0x3d4e = game:GetService("Players").LocalPlayer
